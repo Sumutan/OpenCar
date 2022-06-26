@@ -33,6 +33,20 @@
 链接：https://pan.baidu.com/s/1DpbFzKtUlXvOpdIVyMPuvg?pwd=sz7x 
 提取码：sz7x
 
+### 下载与上传修改
+git clone https://github.com/Sumutan/OpenCar 快速拷贝到本地
+提交项目修改：
+git remote add upstream https://github.com/Sumutan/OpenCar   （添加提交地址，仅第一次提交前运行一次）
+
+git fetch upstream 下载最新版本代码
+git merge upstream/main 把远程最新代码合并到自己的代码中
+然后可以提交三连：
+git add .     添加项目文件（. 为所有文件，也可以是某个具体文件名字）
+git commit -m "提交说明"    本地提交
+git push -u origin main        网络提交
+然后三连提交修改就完成了(本机测试有效)
+
+
 ### 文件说明
 Fusion monster 主函数
 
