@@ -12,10 +12,10 @@ from measure import Img
 from writedownExcel import writedownlength2Excel
 from demo_functions import writedown_list
 
-candidate_picture_file = r"images/dataset/action1/"
-input_path = r"images/dataset/action1/"
+candidate_picture_file = r"images/dataset/action6/"
+input_path = r"images/dataset/action6/"
 save_path = "save_img"
-excel_path = r"C:\Users\10355\Desktop"
+excel_path = "D:\项目\Fusion monster\lengths.xlsx"
 
 global r_image
 
@@ -34,6 +34,12 @@ if __name__ == "__main__":
 
     id_list=[]
     tall_list=[]
+    Shoulder_list=[]
+    hip_list=[]
+    arm_list=[]
+    Forearm_list = []
+    thigh_list=[]
+    calf_list=[]
     for i in range(num_picture):
         test_image = photopath[i]
         print(test_image)
@@ -132,7 +138,7 @@ if __name__ == "__main__":
             else:
                 r_image = deeplab.detect_image(image, count=count, name_classes=name_classes)  ################图片推理
                 r_image.save("img.jpg")
-                r_image.show()
+                #r_image.show()
 
         else:
             raise AssertionError("Please specify the correct mode: 'predict', 'video', 'fps' or 'dir_predict'.")
@@ -141,7 +147,44 @@ if __name__ == "__main__":
         # img.img_show()
 
         p0, p1 = (int(candidate[0][0]), int(candidate[0][1])), (int(candidate[1][0]), int(candidate[1][1]))  # 鼻子和脖子的连线
-
+##--------------------------------------------------------以下为fusion monstedr 内容--------------------------------------------------------------------------##
+        p0, p1 = (int(candidate[0][0]), int(candidate[0][1])), (int(candidate[10][0]), int(candidate[10][1]))  ###鼻子
+        p2, p5 = (int(candidate[2][0]), int(candidate[2][1])), (int(candidate[5][0]), int(candidate[5][1]))  # 左右肩
+        p3, p6 = (int(candidate[3][0]), int(candidate[3][1])), (int(candidate[6][0]), int(candidate[6][1]))  # 左右肘
+        p4, p7 = (int(candidate[4][0]), int(candidate[4][1])), (int(candidate[7][0]), int(candidate[7][1]))  # 左右手腕
+        p8, p11 = (int(candidate[8][0]), int(candidate[8][1])), (int(candidate[11][0]), int(candidate[11][1]))  ###腰围
+        p9, p12 = (int(candidate[9][0]), int(candidate[9][1])), (int(candidate[12][0]), int(candidate[12][1]))  ### 左右膝盖
+        p10, p13 = (int(candidate[10][0]), int(candidate[10][1])), (
+            int(candidate[13][0]), int(candidate[13][1]))  ###左右脚跟
+        # p1013=(int(int(candidate[10][0])+int(candidate[13][0]))/2,int(int(candidate[10][1])+int(candidate[13][1]))/2)
+        p1013 = (int((candidate[10][0] + candidate[13][0]) / 2), int((candidate[10][1] + candidate[13][1]) / 2))
+        print(p2, p5)
+        print(p8, p11)
+        print(p10, p13)
+        print(p1013)
+        # time_start = time.time()
+        tp0, tp1, length1 = img.measure(p0, p1013)  ##身高
+        tp2, tp5, length2 = img.measure(p2, p5)  # 肩宽 测量长度,输出边缘点
+        tp8, tp11, length3 = img.measure(p8, p11)  ##臀围
+        length4 = int(
+            (math.sqrt(pow(candidate[2][0] - candidate[3][0], 2) + pow(candidate[2][1] - candidate[3][1], 2)) +
+             math.sqrt(pow(candidate[5][0] - candidate[6][0], 2) + pow(candidate[5][1] - candidate[6][1], 2))) / 2)
+        length5 = int(
+            (math.sqrt(pow(candidate[3][0] - candidate[4][0], 2) + pow(candidate[3][1] - candidate[4][1], 2)) +
+             math.sqrt(pow(candidate[6][0] - candidate[7][0], 2) + pow(candidate[6][1] - candidate[7][1], 2))) / 2)
+        length6 = int(
+            (math.sqrt(pow(candidate[8][0] - candidate[9][0], 2) + pow(candidate[8][1] - candidate[9][1], 2)) +
+             math.sqrt(pow(candidate[11][0] - candidate[12][0], 2) + pow(candidate[11][1] - candidate[12][1], 2))) / 2)
+        length7 = int(
+            (math.sqrt(pow(candidate[9][0] - candidate[10][0], 2) + pow(candidate[9][1] - candidate[10][1], 2)) +
+             math.sqrt(pow(candidate[12][0] - candidate[13][0], 2) + pow(candidate[12][1] - candidate[13][1], 2))) / 2)
+        print("身高", length1)
+        print("肩宽", length2)
+        print("臀宽", length3)
+        print("大臂", length4)
+        print("小臂", length5)
+        print("大腿", length6)
+        print("小腿", length7)
         img.draw_point(p0)
         img.draw_point(p1)
 
@@ -150,8 +193,20 @@ if __name__ == "__main__":
 
         print("tp2" + str(tp2))
         # img.img_show()
-        tall_list.append(640-tp2[1])
-
+        #tall_list.append(640-tp2[1])
+        tall_list.append(length1)
+        Shoulder_list.append(length2)
+        hip_list.append(length3)
+        arm_list.append(length4)
+        Forearm_list.append(length5)
+        thigh_list.append(length6)
+        calf_list.append(length7)
 
     writedown_list(tall_list,'身高')
+    writedown_list(Shoulder_list, '肩宽')
+    writedown_list(hip_list, '臀宽')
+    writedown_list(arm_list, '大臂')
+    writedown_list(Forearm_list, '小臂')
+    writedown_list(thigh_list, '大腿')
+    writedown_list(calf_list, '小腿')
     writedown_list(id_list,'id')

@@ -34,12 +34,12 @@ def writedown(path, candidate):
 
 """按列写入数据"""
 def writedown_list(list, column_name, filename='lengths.xlsx'):
-    column_num = {'身高': 2,'id':1}
+    column_num = {'身高': 2,'id':1,'肩宽':3,'臀宽':4,'大臂':5,'小臂':6,'大腿':7,'小腿':8}
     if not column_name in column_num.keys():
         print("Error:key not exist!")
         return
 
-    startrow=3      # 以startrow为数据存放的起始行
+    startrow=2      # 以startrow为数据存放的起始行
     workbook = openpyxl.load_workbook(filename)
     sheet = workbook.active
     for i in range(len(list)):
