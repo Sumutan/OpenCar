@@ -1,3 +1,8 @@
+"""
+批量制作训练数据集
+输入图片路径
+输出数据集文件
+"""
 import math
 import os
 import copy

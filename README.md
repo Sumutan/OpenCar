@@ -46,14 +46,23 @@ git commit -m "提交说明"    本地提交
 git push -u origin main        网络提交
 然后三连提交修改就完成了(本机测试有效)
 
-
 ### 文件说明
-Fusion monster 主函数
 
+Fusion monster 		#主函数
+demo_functions.py  #处理openpose模型输出（candidate）以及读写excel所用到的相关函数
+lengths.xlsx				#训练模型用的数据集
+measure.py				#该文件提供在图像中根据openopse给出的点位以及deeplab给出的边界绘制各种点位以及延长线的函数
+picture_pre_process.py	#用与对原始图像做预处理的文件（根据名字分类等操作）
+prediction.py			#输入图片进行一次推理
+test.py						#用于测试语法打的草稿 可随意修改
+train_simple_modle.py	#将数据集（lenths.xlsx）读入后进行模型训练并评估
+writedownExcel.py	#负责实现excel的读写
+DataMaker.py			#批量制作训练数据集
 
+文件夹：
 
+image	存放训练用到的图像文件
 
+model & model_data & nets 分别存放openopse和deeplab的模型权重文件
 
-
-
-
+net	存放自己保存的模型

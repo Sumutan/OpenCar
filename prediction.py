@@ -1,3 +1,7 @@
+"""
+输入图片进行一次推理
+未完成
+"""
 import numpy as np
 import torch
 from torch import nn

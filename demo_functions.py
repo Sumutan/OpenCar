@@ -1,3 +1,8 @@
+"""
+该文件为处理openpose模型输出（candidate）以及读写excel所用到的相关函数
+openpyxl 为读写excel的常用库
+由于经历了多个版本的功能扩充，可能会有功能相交际、重复
+"""
 import os
 import numpy as np
 import os
@@ -10,7 +15,7 @@ def body_estimation_Allimg(filepath):
     return imglist
 
 
-def print_candidate(candidate):
+def print_candidate(candidate):  # 将openopse输出的坐标点打印到终端
     print(np.shape(candidate))
     point = ["鼻子", "胸口", "左肩", '左肘', '左手腕', '右肩', '右手腕', '右手腕', '左髋(kuan)骨', '左膝盖', '左脚跟',
              '右髋(kuan)骨', '右膝盖', '右脚跟', '左眼', '右眼', '左耳', '右耳']
@@ -20,7 +25,7 @@ def print_candidate(candidate):
         print("%s坐标:%s" % (point[i], str((candidate[i][0], candidate[i][1]))))
 
 
-def writedown(path, candidate):
+def writedown(path, candidate):     # 将openopse输出的坐标点写入到excel
     os.chdir(path)  # 修改工作路径
     workbook = openpyxl.load_workbook('points.xlsx')  # 返回一个workbook数据类型的值
     sheet = workbook.active  # 获取活动表
@@ -32,14 +37,17 @@ def writedown(path, candidate):
         sheet.cell(row=i + 1, column=2 * i + 2).value = candidate[i][1]
     workbook.save('points.xlsx')
 
+
 """按列写入数据"""
-def writedown_list(list, column_name, filename='lengths.xlsx'):
-    column_num = {'身高': 2,'id':1,'肩宽':3,'臀宽':4,'大臂':5,'小臂':6,'大腿':7,'小腿':8}
+
+
+def writedown_list(list, column_name, filename='lengths.xlsx'): # 将openopse输出的坐标点写入到excel
+    column_num = {'身高': 2, 'id': 1, '肩宽': 3, '臀宽': 4, '大臂': 5, '小臂': 6, '大腿': 7, '小腿': 8}
     if not column_name in column_num.keys():
         print("Error:key not exist!")
         return
 
-    startrow=2      # 以startrow为数据存放的起始行
+    startrow = 2  # 以startrow为数据存放的起始行
     workbook = openpyxl.load_workbook(filename)
     sheet = workbook.active
     for i in range(len(list)):
@@ -47,7 +55,7 @@ def writedown_list(list, column_name, filename='lengths.xlsx'):
     workbook.save(filename)
 
 
-def candidateright(candidate, subset):  # wyc认为这样写的candidate是正确的所有起码candidateright
+def candidateright(candidate, subset):  # wyc认为这样写的candidate是正确的所有起码candidateright（也是一个输出openopse输出的函数）
     point = ["鼻子", "胸口", "右肩", '右肘', '右手腕', '左肩', '左肘', '左腕', '右髋(kuan)骨', '右膝盖', '右脚跟',
              '右髋(kuan)骨', '左膝盖', '左脚跟', '右眼', '左眼', '右耳', '左耳']
     # print(np.shape(candidate))

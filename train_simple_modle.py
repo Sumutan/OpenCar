@@ -1,3 +1,7 @@
+"""
+将数据集（lenths.xlsx）读入后进行模型训练并评估
+主要经过一个神经网络（DNN），输出结果
+"""
 import numpy as np
 import torch
 from torch import nn

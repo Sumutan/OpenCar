@@ -1,3 +1,8 @@
+"""
+该文件提供在图像中根据openopse给出的点位以及deeplab给出的边界绘制各种点位以及延长线的函数
+各种操作基于opencv-python库
+主要自定义了一个Img图像类（面向对象设计），然后在此基础上用内部的函数对内部的图像数据做处理
+"""
 import cv2 as cv
 import numpy as np
 import array

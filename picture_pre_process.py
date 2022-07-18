@@ -1,3 +1,7 @@
+"""
+用与对原始图像做预处理的文件（根据名字分类等操作）
+在未来不一定使用
+"""
 import os
 import matplotlib.pyplot as plt
 import copy
