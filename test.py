@@ -1,3 +1,2 @@
-a=5,6
-print(a)
-print(type(a))
+x=[[]*7]
+print(x)

@@ -28,7 +28,7 @@ trainModel=False为不需要重新训练，直接从net/last.pt读取模型
 learning_rate = 0.0001  # 学习率
 net_frame = [7, 3, 6]  # 各层感知机数量
 iteration = 200000  # 迭代次数
-early_stop = 5
+early_stop = 20
 trainModel = False
 
 logger = SummaryWriter(log_dir="data/log")
