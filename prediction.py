@@ -30,6 +30,10 @@ from measure import Img
 from writedownExcel import writedownlength2Excel
 from demo_functions import writedown_list
 
+"""
+运行推理
+在candidate_picture_file/input_path指定的文件夹中放入一张需要测试的照片，然后直接运行即可
+"""
 candidate_picture_file = r"images/testimg/"
 input_path = r"images/testimg/"
 save_path = "save_img"
