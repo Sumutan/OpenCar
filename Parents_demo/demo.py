@@ -7,7 +7,7 @@ from src import model
 from src import util
 from src.body import Body
 from src.hand import Hand
-from demo_functions import candidateright
+from output_processing import candidateright
 import os
 
 body_estimation = Body('../model/body_pose_model.pth')

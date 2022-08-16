@@ -8,14 +8,12 @@ import os
 import copy
 from src import util
 from src.body import Body
-from demo_functions import candidateright
-import time
+from output_processing import candidateright
 import cv2
 from PIL import Image
 from Parents_demo.deeplab import DeeplabV3
 from measure import Img
-from writedownExcel import writedownlength2Excel
-from demo_functions import writedown_list
+from output_processing import writedown_list
 
 candidate_picture_file = r"images/dataset/action6/"
 input_path = r"images/dataset/action6/"

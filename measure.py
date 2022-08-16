@@ -166,17 +166,17 @@ if __name__ == '__main__':
     img.draw_point(p1)
     img.draw_point(p2)
     # timg.draw_point(p1)ime_start = time.time()
-    # tp1, tp2, length = img.measure(p1, p2)  # 测量长度,输出边缘点
-    # time_end = time.time()
+    tp1, tp2, length = img.measure(p1, p2)  # 测量长度,输出边缘点
+    time_end = time.time()
     # print('time cost:', (time_end - time_start) * 1000, 'ms')
-    #
-    # img.draw_line(tp1, tp2)  # 在原图上画线
-    #
-    # img.draw_point(p1)
-    # img.draw_point(p2)
-    #
-    # img.draw_point(tp1)  # 在原图上画边缘点
-    # img.draw_point(tp2)
+
+    img.draw_line(tp1, tp2)  # 在原图上画线
+
+    img.draw_point(p1)
+    img.draw_point(p2)
+
+    img.draw_point(tp1)  # 在原图上画边缘点
+    img.draw_point(tp2)
     p2 = img.measure_tall_one_point(p1)
 
     img.draw_Crosspoint(p2)
@@ -187,3 +187,4 @@ if __name__ == '__main__':
     # print(len(img.img[:, 210]))
     # img.draw_point(p)
     # img.img_show()
+

@@ -1,34 +1,17 @@
-import numpy as np
 import torch
 
 from torch import nn
 import torch.nn.functional as F
-from torch.autograd import Variable
-import matplotlib.pyplot as plt
-from torch.utils.data import DataLoader
-from torchvision import datasets
-from torchvision.transforms import ToTensor
-import netron
-# Create data loaders.
-# train_dataloader = DataLoader(training_data, batch_size=batch_size)
-# test_dataloader = DataLoader(test_data, batch_size=batch_size)
-from tensorboardX import SummaryWriter
-import readExcel
-import time
-# -----------------
 import math
 import os
 import copy
 from src import util
 from src.body import Body
-from demo_functions import candidateright
-import time
+from output_processing import candidateright
 import cv2
 from PIL import Image
 from Parents_demo.deeplab import DeeplabV3
 from measure import Img
-from writedownExcel import writedownlength2Excel
-from demo_functions import writedown_list
 
 """
 运行推理
@@ -55,6 +38,7 @@ class Net(nn.Module):
         out = F.relu(out)
         out = self.predict(out)
         return out
+
 
 if __name__ == "__main__":
 
@@ -243,6 +227,7 @@ if __name__ == "__main__":
         x.append(length7)
         print("身高,肩宽,臀宽,大臂,小臂,大腿,小腿:(像素点长)")
         print(x)
+
     # writedown_list(tall_list,'身高')
     # writedown_list(Shoulder_list, '肩宽')
     # writedown_list(hip_list, '臀宽')
@@ -257,7 +242,7 @@ if __name__ == "__main__":
 
     # 张量化
     x = torch.tensor(x).to(torch.float32)
-    print("x",x)
+    print("x", x)
 
     # 加载模型
     net = torch.load('net/last.pt')
@@ -265,7 +250,7 @@ if __name__ == "__main__":
     print("input:", str(x))
     prediction = net(x)  # prediction=[a,b,...,f]
     print("output:", str(prediction))
-    output=prediction.tolist()
-    itemname=['身高','肩宽','大臂','小臂','大腿','小腿']
+    output = prediction.tolist()
+    itemname = ['身高', '肩宽', '大臂', '小臂', '大腿', '小腿']
     for i in range(len(output)):
-        print(itemname[i],':',output[i])
+        print(itemname[i], ':', output[i])

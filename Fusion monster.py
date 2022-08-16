@@ -5,7 +5,7 @@ import copy
 
 from src import util
 from src.body import Body
-from demo_functions import candidateright
+from output_processing import candidateright
 import time
 
 import cv2

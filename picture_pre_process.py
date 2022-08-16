@@ -1,17 +1,15 @@
 """
-用与对原始图像做预处理的文件（根据名字分类等操作）
+用于对原始图像做预处理的文件（根据名字分类、在图片上加辅助线等操作）
 在未来不一定使用
 """
 import os
-import matplotlib.pyplot as plt
 import copy
 from src import util
 from src.body import Body
-from demo_functions import candidateright
+from output_processing import candidateright
 import time
 import cv2
 import numpy as np
-from measure import Img
 
 
 def extend(p1, p2, k=1):

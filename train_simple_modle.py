@@ -29,83 +29,9 @@ learning_rate = 0.0001  # 学习率
 net_frame = [7, 3, 6]  # 各层感知机数量
 iteration = 200000  # 迭代次数
 early_stop = 20
-trainModel = False
-
-logger = SummaryWriter(log_dir="data/log")
-# 准备训练数据
-# data = readExcel.read_exceldata([0, 1, 2, 3, 4, 5], tablePass='points_train.xlsx', print=True)  # ,从excel读入数据到data
-data = readExcel.read_exceldata('A,B,C,D,E,F,G,H,I,J,K,L,M,N', tablePass='lengths.xlsx', print=True)
-
-print(data)
-
-train_x = []
-train_y = []
-validation_x = []
-validation_y = []
-m = len(data)
-# 将读入的数据写入训练集列表train_x与标签列表train_y
-for i in range(m):
-    if i % 3 == 0:  # 每5张中有一张放入验证集
-        validation_x.append([data[i][1], data[i][2], data[i][3], data[i][4], data[i][5], data[i][6], data[i][7]])
-        validation_y.append([data[i][8], data[i][9], data[i][10], data[i][11], data[i][12], data[i][13]])
-        print("已读入验证集" + str(data[i][0]))
-    else:
-        train_x.append([data[i][1], data[i][2], data[i][3], data[i][4], data[i][5], data[i][6], data[i][7]])
-        train_y.append([data[i][8], data[i][9], data[i][10], data[i][11], data[i][12], data[i][13]])
-        print("已读入训练集" + str(data[i][0]))
-
-# for i in range(m):
-#     if i % 5 == 0:  # 每5张中有一张放入验证集
-#         validation_x.append([data[i][1]])
-#         validation_y.append([data[i][2]])
-#         print("已读入验证集" + str(data[i][0]))
-#     else:
-#         train_x.append([data[i][1]])
-#         train_y.append([data[i][2]])
-#         print("已读入训练集" + str(data[i][0]))
-
-# 张量化
-x = torch.tensor(train_x).to(torch.float32)
-y = torch.tensor(train_y).to(torch.float32)
-vx = torch.tensor(validation_x).to(torch.float32)
-vy = torch.tensor(validation_y).to(torch.float32)
-
-print(x)
-
-# #数据送GPU计算
-# x =x.to(torch.device(f'cuda:{0}'))
-# y =y.to(torch.device(f'cuda:{0}'))
-# vx =vx.to(torch.device(f'cuda:{0}'))
-# vy =vy.to(torch.device(f'cuda:{0}'))
-
-print("数据准备完毕")
-print("数据集x个数:", len(x))
-print("验证集vx个数:", len(vx))
-
-
-# m=10   #样本数:m^2
-# x=np.random.rand(2*m).reshape(m,-1)
-# # m=x.shape[0]
-# train_x=[]
-# train_y=[]
-# for i in range(m):
-#     for j in range(m):
-#         train_x.append([x[i][0], x[i][1], x[j][0], x[j][1]])
-#         train_y.append([pow(pow((x[i][0]-x[j][0]),2)+pow((x[i][1]-x[j][1]),2),0.5)])
-#         # train_y.append([x[i][0]+x[j][0]+x[i][1]+x[j][1]])
-#
-# x=torch.tensor(train_x).to(torch.float32)
-# y=torch.tensor(train_y).to(torch.float32)
-# print(len(x))
-# # print(y)
-
+trainModel = True
 
 # Define model
-
-
-# 定义网络结构
-
-# 网络类
 class Net(nn.Module):
     def __init__(self, net_frame):
         super(Net, self).__init__()
@@ -120,29 +46,58 @@ class Net(nn.Module):
         out = self.predict(out)
         return out
 
+logger = SummaryWriter(log_dir="data/log")
+# 准备训练数据
+# data = readExcel.read_exceldata([0, 1, 2, 3, 4, 5], tablePass='points_train.xlsx', print=True)  # ,从excel读入数据到data
+data = readExcel.read_exceldata('A,B,C,D,E,F,G,H,I,J,K,L,M,N', tablePass='lengths.xlsx', print=True)
+
+print(data)
+
+train_x = []
+train_y = []
+validation_x = []
+validation_y = []
+m = len(data)
+# 将读入的数据写入训练集列表train_x与标签列表train_y
+
+
+for i in range(m):
+    if i % 5 == 0:  # 每5张中有一张放入验证集
+        validation_x.append([data[i][1], data[i][2], data[i][3], data[i][4], data[i][5], data[i][6], data[i][7]])
+        validation_y.append([data[i][8], data[i][9], data[i][10], data[i][11], data[i][12], data[i][13]])
+        # print("已读入验证集" + str(data[i][0]))
+    else:
+        train_x.append([data[i][1], data[i][2], data[i][3], data[i][4], data[i][5], data[i][6], data[i][7]])
+        train_y.append([data[i][8], data[i][9], data[i][10], data[i][11], data[i][12], data[i][13]])
+        # print("已读入训练集" + str(data[i][0]))
+
+# 张量化
+x = torch.tensor(train_x).to(torch.float32)
+y = torch.tensor(train_y).to(torch.float32)
+vx = torch.tensor(validation_x).to(torch.float32)
+vy = torch.tensor(validation_y).to(torch.float32)
+
+print(x)
+
+print("数据准备完毕")
+print("数据集x个数:", len(x))
+print("验证集vx个数:", len(vx))
+
 
 if trainModel:
-    # 生成模型对象
-    net = Net(net_frame)
-    # net = Net(net_frame).to(device=torch.device(f'cuda:{0}'))
+    net = Net(net_frame)    # 生成模型对象
     print(net)
-    # model = NeuralNetwork().to(device)
-    # print(model)
 
     # 定义训练方法,损失函数,日志间隔
     optimizer = torch.optim.Adam(net.parameters(), lr=learning_rate)  # .Adam:adam优化器 ,lr:learning_rate 学习率
     loss_func = torch.nn.MSELoss()  # MSELoss损失函数
     log_step_interval = 100  # 每100轮训练记录一次loss日志用于后期绘图
 
-    # plt.ion()
-    # plt.show()
-
     # 开始训练
-    loss_best = 0
+    loss_best = 10000
     lose_last = 0
-    best_save = False
+    best_save = False       #保存最优模型
     for t in range(iteration):
-
         # 前向计算->计算损失函数->(从损失函数)反向传播->更新网络
         prediction = net(x)
         loss = loss_func(prediction, y)
@@ -150,10 +105,7 @@ if trainModel:
         loss.backward()  # 反向传播计算梯度
         optimizer.step()  # 更新网络
 
-        if loss.item() < early_stop and not best_save:  # 如果loss小于4,提前终止一份防止过拟合
-            torch.save(net, 'net/best.pt')
-            best_save = True
-            loss_best = loss.item()
+
         if t % log_step_interval == 0:
             # 控制台输出一下
             # print(str(t)+"Loss = %.8f" % loss.data)
@@ -161,6 +113,10 @@ if trainModel:
             print("global_step:{}, loss:{:.8}".format(global_iter_num, loss.item()))
             logger.add_scalar("train loss", loss.item(), global_step=global_iter_num)
             lose_last = loss.item()
+            if lose_last<loss_best:
+                loss_best=lose_last
+                torch.save(net, 'net/best.pt')
+                print("epoch%d 保存最优模型，loss:%.4d"%(t,loss_best))
     #         plt.cla()
     #         plt.scatter(x.data.numpy(), y.data.numpy())
     #         plt.plot(x.data.numpy(), prediction.data.numpy(), 'r-', lw=5)

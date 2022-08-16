@@ -49,7 +49,7 @@ git push -u origin main        网络提交
 ### 文件说明
 
 Fusion monster 		#主函数
-demo_functions.py  #处理openpose模型输出（candidate）以及读写excel所用到的相关函数
+output_processing.py（原demo_functions.py）  #处理openpose模型输出（candidate）以及读写excel所用到的相关函数
 lengths.xlsx				#训练模型用的数据集
 measure.py				#该文件提供在图像中根据openopse给出的点位以及deeplab给出的边界绘制各种点位以及延长线的函数
 picture_pre_process.py	#用与对原始图像做预处理的文件（根据名字分类等操作）
