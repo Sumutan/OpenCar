@@ -18,7 +18,7 @@ from output_processing import writedown_list
 candidate_picture_file = r"images/dataset/action6/"
 input_path = r"images/dataset/action6/"
 save_path = "save_img"
-excel_path = "D:\项目\Fusion monster\lengths.xlsx"
+excel_path = r"lengths.xlsx"
 
 global r_image
 

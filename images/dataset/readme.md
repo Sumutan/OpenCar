@@ -1,2 +1,0 @@
-action6是action1的纯净图片
-
