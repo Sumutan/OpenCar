@@ -1,0 +1,3 @@
+dataset_raw:根据动作分类的干净的图片
+dataset：1-5为根据绘制过的图片，6为干净的动作1的图片
+testing：prediction.py用的测试图片放置的文件夹
